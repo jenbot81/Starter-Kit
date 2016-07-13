@@ -1,0 +1,36 @@
+use Libraries.Game.Game
+use Libraries.Game.Graphics.Model
+use Libraries.Sound.Speech
+use Libraries.Game.Graphics.Color
+use Libraries.Game.InputMonitor
+use Libraries.Interface.Events.KeyboardEvent
+
+
+
+class Main is Game
+    Model miniModel
+    Speech miniSpeech
+    InputMonitor monitor
+    KeyboardEvent keys
+    Color pink
+    
+    action Main
+        StartGame()
+    end
+
+  
+    action CreateGame
+        pink:SetColor(1, 0, 0, 0.60)
+            miniModel:LoadBox(1.5, 1.5, 1.5, pink)
+            miniModel:SetDescription("Mini mouse cube")
+            miniModel:
+        Add(miniModel)
+      end
+
+  
+    action Update(number seconds)
+        if monitor:IsKeyPressed(keys:SPACE)
+            miniSpeech:Say(miniModel:GetDescription())
+        end
+    end
+end
