@@ -1,0 +1,41 @@
+use Libraries.Robots.Lego.Button
+use Libraries.Robots.Lego.Sound
+use Libraries.Robots.Lego.Screen
+use Libraries.Robots.Lego.UltrasonicSensor
+use Libraries.Robots.Lego.Motor
+
+Button buttonCtrl
+Sound soundCtrl
+Screen screenCtrl
+UltrasonicSensor disSensor
+Motor motor
+
+screenCtrl:OutputCenterLarge("Hello", 1)
+screenCtrl:OutputCenterLarge("World", 4)
+soundCtrl:Beep()
+buttonCtrl:SetLightPattern(3)
+disSensor:SetPort(4)
+
+repeat until buttonCtrl:IsButtonPressed(buttonCtrl:ESCAPE_BUTTON)
+    motor:RotateByDegrees("B", 600)
+    motor:RotateByDegrees("C", 600)
+    motor:Wait("B")
+    motor:Wait("C")
+
+number distance = disSensor:GetDistance()
+    if distance < 0.1
+        motor:RotateByDegrees("B", -50)
+        motor:RotateByDegrees("C", -50)
+        
+        motor:Wait("B")
+        motor:Wait("C")
+
+        motor:RotateByDegrees("B", -90)
+        motor:RotateByDegrees("C", 90)
+
+        motor:Wait("B")
+        motor:Wait("C")
+
+    end
+end
+soundCtrl:Buzz()
